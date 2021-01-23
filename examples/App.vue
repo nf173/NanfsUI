@@ -2,14 +2,6 @@
   <div id="app">
     <h1>Nanfs UI</h1>
 
-    <section class="btn">
-      <h3>按钮:</h3>
-      <nf-button>默认按钮</nf-button>
-      <nf-button type="primary">主要按钮</nf-button>
-      <nf-button size="small" type="primary">小号按钮</nf-button>
-      <nf-button size="small" type="primary" :loading="true">加载中</nf-button>
-    </section>
-
     <section class="icon">
       <h3>图标:</h3>
       <nf-icon
@@ -18,6 +10,28 @@
         :name="item"
         size="20px"
       ></nf-icon>
+    </section>
+
+    <section class="input">
+      <h3>输入框:</h3>
+      <nf-input v-model="input_value"></nf-input>
+      <nf-input size="small" placeholder="小号输入框"></nf-input>
+      <nf-input
+        size="small"
+        placeholder="限制输入长度4个字符"
+        :maxlength="4"
+      ></nf-input>
+      <nf-input size="small" placeholder="可清除" clearable></nf-input>
+
+      {{ input_value }}
+    </section>
+
+    <section class="btn">
+      <h3>按钮:</h3>
+      <nf-button>默认按钮</nf-button>
+      <nf-button type="primary">主要按钮</nf-button>
+      <nf-button size="small" type="primary">小号按钮</nf-button>
+      <nf-button size="small" type="primary" :loading="true">加载中</nf-button>
     </section>
   </div>
 </template>
@@ -37,21 +51,36 @@ export default {
         "cloud_fill",
         "cloud_fill_off",
         "loader",
+        "close",
+        "close_circle",
+        "close_circle_fill",
+        "eye",
+        "eye_off",
+        "eye_close",
+        "search",
+        "search_fill",
       ],
+      input_value: "",
     };
   },
 };
 </script>
 
 <style lang="scss">
-.btn {
-  .nf-button {
+.icon {
+  .svg-icon {
     margin-right: 10px;
   }
 }
 
-.icon {
-  .svg-icon {
+.input {
+  .nf-input {
+    margin-right: 10px;
+  }
+}
+
+.btn {
+  .nf-button {
     margin-right: 10px;
   }
 }
