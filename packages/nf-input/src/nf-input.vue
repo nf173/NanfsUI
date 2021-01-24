@@ -3,18 +3,28 @@
     class="nf-input"
     :class="[
       size === 'small' ? 'nf-input--small' : '',
+      disabled ? 'is-disabled' : '',
+      $scopedSlots.prefix ? 'nf-input--prefix' : '',
       $scopedSlots.suffix || clearable ? 'nf-input--suffix' : '',
     ]"
   >
+    <span class="nf-input__prefix" v-if="$scopedSlots.prefix">
+      <slot name="prefix"></slot>
+    </span>
+
     <input
-      class="nf-input__inner"
       ref="input"
+      class="nf-input__inner"
+      :autocomplete="autocomplete"
       :placeholder="placeholder"
       :maxlength="maxlength"
+      :disabled="disabled"
       :value="value"
       :type="type"
       @input="input"
       @change="change"
+      @focus="focus"
+      @blur="blur"
     />
 
     <span class="nf-input__suffix" v-if="$scopedSlots.suffix || clearable">
@@ -44,9 +54,17 @@ export default {
     },
     placeholder: {
       type: String,
-      default: "在此输入",
+      default: "",
+    },
+    autocomplete: {
+      type: String,
+      default: "off",
     },
     clearable: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -57,6 +75,12 @@ export default {
     },
     change($e) {
       this.$emit("change", $e.target.value);
+    },
+    focus() {
+      this.$emit("focus");
+    },
+    blur() {
+      this.$emit("blur");
     },
     clear() {
       this.$emit("input", "");
@@ -141,5 +165,28 @@ input[type="password"]::-ms-reveal {
   &:hover {
     color: #333;
   }
+}
+
+/* slot='prefix' style */
+.nf-input--prefix .nf-input__inner {
+  padding-left: 30px;
+}
+
+.nf-input__prefix {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 100%;
+}
+
+/* disabled style */
+.nf-input.is-disabled .nf-input__inner {
+  background-color: #f5f7fa;
+  border-color: #e4e7ed;
+  cursor: not-allowed;
 }
 </style>

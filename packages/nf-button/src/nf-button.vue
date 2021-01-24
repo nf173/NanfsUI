@@ -6,7 +6,9 @@
       type === 'primary' ? 'nf-button--primary' : '',
       size === 'small' ? 'nf-button--small' : '',
       loading === true ? 'is-loading' : '',
+      disabled ? 'is-disabled' : '',
     ]"
+    :disabled="disabled"
   >
     <nf-icon name="loader" class="nf-icon-loading" v-if="loading"></nf-icon>
     <span>
@@ -24,15 +26,13 @@ export default {
     NfIcon,
   },
   props: {
-    type: {
-      type: String,
-      default: "",
-    },
-    size: {
-      type: String,
-      default: "",
-    },
+    type: String,
+    size: String,
     loading: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -127,5 +127,14 @@ export default {
   100% {
     transform: rotate(1turn);
   }
+}
+
+/* disabled normal style */
+.nf-button.is-disabled {
+  color: #c0c4cc;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: #fff;
+  border-color: #ebeef5;
 }
 </style>
